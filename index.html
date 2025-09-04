@@ -137,6 +137,80 @@
         .page-break {
             page-break-before: always;
         }
+
+        /* -----------------------------------------------------------
+   RESPONSIVE MOBILE (≤640px) 
+----------------------------------------------------------- */
+@media screen and (max-width: 640px) {
+
+    body {
+        padding: 10px;          /* Kurangi padding agar tidak terlalu lebar */
+        font-size: 14px;        /* Font lebih kecil agar muat */
+        line-height: 1.4;
+    }
+
+    .header h1,
+    .header h2 {
+        font-size: 20px;        /* Ukuran judul lebih kecil */
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    table {
+        font-size: 12px;        /* Tabel lebih kecil */
+    }
+
+    th, td {
+        padding: 6px 8px;       /* Padding lebih rapat */
+    }
+
+    /* Tabel horizontal scroll jika terlalu lebar */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Menjadikan tabel menjadi "block" agar bisa discroll */
+    table {
+        display: block;
+        width: 100%;
+    }
+
+    /* Signature box jadi satu kolom */
+    .signature-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .signature-box {
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    /* Tombol print lebih kecil di mobile */
+    .print-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Tambahan wrapper untuk tabel agar bisa discroll */
+@media screen and (max-width: 640px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+
     </style>
 </head>
 <body>
