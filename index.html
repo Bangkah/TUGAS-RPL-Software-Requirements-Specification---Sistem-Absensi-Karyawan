@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Requirements Specification - Sistem Absensi Karyawan</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+            color: #5d6d7e;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background-color: #ecf0f1;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .version-info {
+            text-align: center;
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .toc h2 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        
+        .signature-section {
+            margin-top: 40px;
+            border-top: 1px solid #bdc3c7;
+            padding-top: 20px;
+        }
+        
+        .signature-box {
+            display: inline-block;
+            width: 45%;
+            text-align: center;
+            margin: 20px 2%;
+            border: 1px solid #bdc3c7;
+            padding: 20px;
+            min-height: 80px;
+        }
+        
+        .print-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        
+        .print-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+        <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+        <button class="print-btn" onclick="downloadAsWord()">📄 Save as Word</button>
+    </div>
+
+    <div class="header">
+        <h1>Software Requirements Specification (SRS)</h1>
+        <h1>Sistem Absensi Karyawan Berbasis Web</h1>
+        <h2 style="border: none; color: #7f8c8d;">(Laravel 12 + Tailwind CSS)</h2>
+        <div class="version-info">Versi 1.0 – 4 September 2025</div>
+    </div>
+
+    <div class="toc">
+        <h2>Daftar Isi</h2>
+        <ul>
+            <li>1. Pendahuluan</li>
+            <li>2. Deskripsi Keseluruhan</li>
+            <li>3. Kebutuhan Fungsional</li>
+            <li>4. Kebutuhan Non-Fungsional</li>
+            <li>5. Antarmuka Pengguna</li>
+            <li>6. Database Schema</li>
+            <li>7. Alur Kerja</li>
+            <li>8. Lingkungan Pengembangan & DevOps</li>
+            <li>9. Rencana Pengujian</li>
+            <li>10. Deliverable & Timeline</li>
+            <li>11. Lampiran</li>
+        </ul>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>1. Pendahuluan</h2>
+    
+    <h3>1.1 Tujuan Dokumen</h3>
+    <p>Dokumen ini mendefinisikan seluruh kebutuhan fungsional dan non-fungsional agar kelompok workshop web (apa kita kasih nama kelompok kita cok) dapat mengembangkan sistem absensi karyawan yang <strong>identik fitur</strong> dengan referensi https://github.com/Bangkah/ABSENSI-KARYAWAN namun menggunakan <strong>Laravel 12 + Tailwind CSS</strong>.</p>
+
+    <h3>1.2 Ruang Lingkup</h3>
+    <table>
+        <tr>
+            <th>Aspek</th>
+            <th>Detail</th>
+        </tr>
+        <tr>
+            <td><strong>Nama Produk</strong></td>
+            <td>AbsensiKaryawan</td>
+        </tr>
+        <tr>
+            <td><strong>Platform</strong></td>
+            <td>Web Browser (desktop & mobile)</td>
+        </tr>
+        <tr>
+            <td><strong>Pengguna</strong></td>
+            <td>Admin, Operator, Pegawai</td>
+        </tr>
+        <tr>
+            <td><strong>Lokasi Deploy</strong></td>
+            <td>Sementara di localhost dulu aja heheh</td>
+        </tr>
+        <tr>
+            <td><strong>Maksimal Pengguna Simultan</strong></td>
+            <td>100 orang</td>
+        </tr>
+    </table>
+
+    <h3>1.3 Istilah & Singkatan</h3>
+    <table>
+        <tr>
+            <th>Istilah</th>
+            <th>Arti</th>
+        </tr>
+        <tr>
+            <td>QR Code</td>
+            <td>Quick Response Code untuk absensi otomatis</td>
+        </tr>
+        <tr>
+            <td>RBAC</td>
+            <td>Role-Based Access Control</td>
+        </tr>
+        <tr>
+            <td>CSV</td>
+            <td>Comma-Separated Values (format export laporan)</td>
+        </tr>
+        <tr>
+            <td>Excel</td>
+            <td>File .xlsx (format export laporan)</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>2. Deskripsi Keseluruhan</h2>
+    
+    <h3>2.1 Fungsi Utama</h3>
+    <ol>
+        <li>Manajemen data master (jabatan, pengguna, hari libur).</li>
+        <li>Absensi masuk & pulang via QR Code <strong>atau</strong> input manual NIP.</li>
+        <li>Pengajuan & persetujuan izin.</li>
+        <li>Laporan kehadiran harian, mingguan, bulanan (export Excel/CSV).</li>
+        <li>Role-based dashboard (Admin / Operator / Pegawai).</li>
+    </ol>
+
+    <h3>2.2 Arsitektur Teknologi</h3>
+    <table>
+        <tr>
+            <th>Layer</th>
+            <th>Teknologi</th>
+        </tr>
+        <tr>
+            <td>Backend</td>
+            <td>Laravel 12.x (PHP 8.3)</td>
+        </tr>
+        <tr>
+            <td>Frontend</td>
+            <td>Blade + Livewire 3 + Tailwind CSS 3.x</td>
+        </tr>
+        <tr>
+            <td>DBMS</td>
+            <td>MySQL 8.x</td>
+        </tr>
+        <tr>
+            <td>Auth</td>
+            <td>Laravel Sanctum (session-based)</td>
+        </tr>
+        <tr>
+            <td>QR Library</td>
+            <td>simplesoftwareio/simple-qrcode</td>
+        </tr>
+        <tr>
+            <td>Excel Export</td>
+            <td>maatwebsite/excel 3.x</td>
+        </tr>
+        <tr>
+            <td>Tabel Interaktif</td>
+            <td>Livewire PowerGrid</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>3. Kebutuhan Fungsional</h2>
+    
+    <h3>3.1 Manajemen Pengguna & RBAC</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Fitur</th>
+            <th>Deskripsi Detail</th>
+        </tr>
+        <tr>
+            <td>F-01</td>
+            <td>CRUD Pegawai</td>
+            <td>Tambah/Edit/Hapus pegawai (nama, email, NIP unik, jabatan, foto).</td>
+        </tr>
+        <tr>
+            <td>F-02</td>
+            <td>CRUD Operator & Admin</td>
+            <td>Sama dengan pegawai namun role = operator / admin.</td>
+        </tr>
+        <tr>
+            <td>F-03</td>
+            <td>Reset Password</td>
+            <td>Admin/Operator dapat reset password pegawai; pegawai dapat ubah password sendiri.</td>
+        </tr>
+        <tr>
+            <td>F-04</td>
+            <td>Role Permissions</td>
+            <td>Hak akses tabel:<br>- Admin = semua fitur<br>- Operator = absensi, izin, laporan (tidak bisa CRUD jabatan)<br>- Pegawai = absensi, lihat riwayat, ajukan izin</td>
+        </tr>
+    </table>
+
+    <h3>3.2 Manajemen Jabatan & Hari Libur</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Fitur</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>F-05</td>
+            <td>CRUD Jabatan</td>
+            <td>Nama jabatan, deskripsi, tingkat (untuk urutan laporan).</td>
+        </tr>
+        <tr>
+            <td>F-06</td>
+            <td>CRUD Hari Libur</td>
+            <td>Tanggal, nama hari libur, flag nasional/lokal. Sistem otomatis menandai absensi "libur".</td>
+        </tr>
+    </table>
+
+    <h3>3.3 Absensi</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Fitur</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>F-07</td>
+            <td>Generate QR Code</td>
+            <td>Setiap hari sistem generate QR unik (berisi token 6 digit + tanggal).</td>
+        </tr>
+        <tr>
+            <td>F-08</td>
+            <td>Scan QR</td>
+            <td>Pegawai scan → validasi token & lokasi (opsional) → catat jam masuk.</td>
+        </tr>
+        <tr>
+            <td>F-09</td>
+            <td>Input Manual</td>
+            <td>Pegawai ketik NIP + PIN → catat masuk / pulang.</td>
+        </tr>
+        <tr>
+            <td>F-10</td>
+            <td>Validasi Waktu</td>
+            <td>- Masuk: 07:00–09:00 (terlambat jika >09:00)<br>- Pulang: 16:00–19:00 (pulang cepat jika <16:00)</td>
+        </tr>
+        <tr>
+            <td>F-11</td>
+            <td>Tidak Absen Pulang</td>
+            <td>Sistem otomatis tandai "belum absen pulang" setelah 24:00.</td>
+        </tr>
+        <tr>
+            <td>F-12</td>
+            <td>Toleransi Keterlambatan</td>
+            <td>Admin setting menit toleransi; default 5 menit.</td>
+        </tr>
+    </table>
+
+    <h3>3.4 Izin & Cuti</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Fitur</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>F-13</td>
+            <td>Pengajuan Izin</td>
+            <td>Pegawai pilih tanggal, jenis (sakit/izin/cuti), upload bukti (jpg/pdf).</td>
+        </tr>
+        <tr>
+            <td>F-14</td>
+            <td>Persetujuan</td>
+            <td>Operator/Admin approve/reject + keterangan; pegawai dapat notifikasi email.</td>
+        </tr>
+        <tr>
+            <td>F-15</td>
+            <td>Saldo Cuti</td>
+            <td>Admin set saldo cuti tahunan; sistem kurangi otomatis.</td>
+        </tr>
+    </table>
+
+    <h3>3.5 Laporan & Export</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Fitur</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>F-16</td>
+            <td>Rekap Harian</td>
+            <td>Tabel pegawai hadir, izin, alfa, terlambat. Filter tanggal.</td>
+        </tr>
+        <tr>
+            <td>F-17</td>
+            <td>Rekap Bulanan</td>
+            <td>Summary per pegawai (jumlah hadir, izin, alfa, jam terlambat).</td>
+        </tr>
+        <tr>
+            <td>F-18</td>
+            <td>Export</td>
+            <td>Excel (.xlsx) & CSV; nama file auto: rekap_absensi_2025_09.xlsx.</td>
+        </tr>
+    </table>
+
+    <h3>3.6 Dashboard</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Fitur</th>
+            <th>Deskripsi</th>
+        </tr>
+        <tr>
+            <td>F-19</td>
+            <td>Admin Dashboard</td>
+            <td>Statistik total pegawai, hadir hari ini, izin pending, grafik kehadiran 7 hari.</td>
+        </tr>
+        <tr>
+            <td>F-20</td>
+            <td>Pegawai Dashboard</td>
+            <td>Kartu kehadiran hari ini, riwayat 5 hari terakhir, sisa cuti, tombol absensi.</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>4. Kebutuhan Non-Fungsional</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Kategori</th>
+            <th>Spesifikasi</th>
+        </tr>
+        <tr>
+            <td>NF-01</td>
+            <td>Performa</td>
+            <td>Halaman load < 2 detik (1000 record absensi).</td>
+        </tr>
+        <tr>
+            <td>NF-02</td>
+            <td>Skalabilitas</td>
+            <td>Dapat menampung 1000 pegawai, 500.000 record absensi tanpa degradasi.</td>
+        </tr>
+        <tr>
+            <td>NF-03</td>
+            <td>Keamanan</td>
+            <td>- Password minimal 8 karakter<br>- Hash bcrypt<br>- Rate-limit login 5 kali/gagal<br>- QR token expire 1 hari</td>
+        </tr>
+        <tr>
+            <td>NF-04</td>
+            <td>Responsive</td>
+            <td>Tailwind breakpoint: mobile (≤640px), tablet (≤1024px), desktop.</td>
+        </tr>
+        <tr>
+            <td>NF-05</td>
+            <td>Backup</td>
+            <td>Otomatis backup DB harian ke cloud storage (S3/MinIO).</td>
+        </tr>
+        <tr>
+            <td>NF-06</td>
+            <td>Audit Trail</td>
+            <td>Semua aksi admin (CRUD, approve) tercatat (tabel audit_logs).</td>
+        </tr>
+    </table>
+
+    <h2>5. Antarmuka Pengguna (Wireframe-level)</h2>
+    
+    <h3>5.1 Login</h3>
+    <p>Field email & password, tombol "Masuk", link "Lupa Password".</p>
+
+    <h3>5.2 Dashboard Admin</h3>
+    <ul>
+        <li><strong>Navbar:</strong> Logo, nama admin, dropdown logout.</li>
+        <li><strong>Sidebar:</strong> Dashboard, Pegawai, Jabatan, Hari Libur, Laporan, Pengaturan.</li>
+        <li><strong>Main Content:</strong>
+            <ul>
+                <li>Card: Total Pegawai (ikon orang)</li>
+                <li>Card: Hadir Hari Ini (ikon hadir)</li>
+                <li>Card: Izin Pending (ikon izin)</li>
+                <li>Grafik Bar kehadiran 7 hari (Chart.js/Livewire Charts)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>5.3 Scan QR</h3>
+    <p>Full-screen camera (mobile) atau modal pop-up (desktop). Tombol "Input NIP Manual" untuk fallback.</p>
+
+    <h3>5.4 Form Pengajuan Izin</h3>
+    <p>Datepicker, dropdown jenis izin, textarea alasan, upload file (drag & drop), tombol "Kirim".</p>
+
+    <div class="page-break"></div>
+
+    <h2>6. Database Schema (Ringkas)</h2>
+    <table>
+        <tr>
+            <th>Tabel</th>
+            <th>Kolom Utama</th>
+        </tr>
+        <tr>
+            <td>users</td>
+            <td>id, name, email, nip, password, jabatan_id, role, foto_path, remember_token, timestamps</td>
+        </tr>
+        <tr>
+            <td>jabatans</td>
+            <td>id, nama_jabatan, deskripsi, level, timestamps</td>
+        </tr>
+        <tr>
+            <td>absensis</td>
+            <td>id, user_id, tanggal, jam_masuk, jam_keluar, status_hadir, terlambat_menit, pulang_cepat_menit, keterangan, timestamps</td>
+        </tr>
+        <tr>
+            <td>izins</td>
+            <td>id, user_id, tanggal_mulai, tanggal_selesai, jenis, alasan, file_bukti_path, status, approved_by, approved_at, timestamps</td>
+        </tr>
+        <tr>
+            <td>hari_liburs</td>
+            <td>id, tanggal, nama_libur, jenis, timestamps</td>
+        </tr>
+        <tr>
+            <td>audit_logs</td>
+            <td>id, user_id, aksi, tabel, data_lama, data_baru, ip_address, timestamps</td>
+        </tr>
+    </table>
+
+    <h2>7. Alur Kerja (Sequence Diagram)</h2>
+    
+    <h3>7.1 Absensi Masuk via QR</h3>
+    <ol>
+        <li>Pegawai → Klik "Absensi Masuk"</li>
+        <li>Sistem → Generate token & QR</li>
+        <li>Pegawai → Scan QR</li>
+        <li>Sistem → Validasi token & waktu → Simpan absensi → Tampilkan pesan sukses / gagal</li>
+    </ol>
+
+    <h2>8. Lingkungan Pengembangan & DevOps</h2>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Nilai</th>
+        </tr>
+        <tr>
+            <td>Repo Git</td>
+            <td>git.company.com/absensi-l12</td>
+        </tr>
+        <tr>
+            <td>Branch Strategy</td>
+            <td>main / develop / feature/*</td>
+        </tr>
+        <tr>
+            <td>CI/CD</td>
+            <td>GitHub Actions:<br>- Run PHPUnit<br>- Run ESLint/Tailwind lint<br>- Deploy ke staging otomatis</td>
+        </tr>
+        <tr>
+            <td>Staging URL</td>
+            <td>Nanti kita pikir</td>
+        </tr>
+        <tr>
+            <td>Environment Variables</td>
+            <td>.env.example lengkap (DB, MAIL, AWS, QR_ENDPOINT)</td>
+        </tr>
+    </table>
+
+    <h2>9. Rencana Pengujian</h2>
+    <table>
+        <tr>
+            <th>Jenis Uji</th>
+            <th>Cakupan</th>
+        </tr>
+        <tr>
+            <td>Unit Test</td>
+            <td>Model scope, service absensi, permission gate</td>
+        </tr>
+        <tr>
+            <td>Feature Test</td>
+            <td>CRUD pegawai, scan QR, approve izin</td>
+        </tr>
+        <tr>
+            <td>Browser Test</td>
+            <td>Dusk: login, absensi, export Excel</td>
+        </tr>
+        <tr>
+            <td>Load Test</td>
+            <td>4 user scan QR bersamaan (k6) (tapi nanti klo bisa lebih banyak)</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>10. Deliverable & Timeline</h2>
+    <table>
+        <tr>
+            <th>Minggu</th>
+            <th>Deliverable</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Setup Laravel 12 + Tailwind + Auth</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>CRUD Jabatan & Pegawai</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Fitur QR Absensi + Manual</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Izin & Cuti</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Laporan + Export</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Dashboard + Responsive</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Testing & Bugfix</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Deploy Staging & UAT</td>
+        </tr>
+    </table>
+
+    <h2>11. Lampiran</h2>
+    <ul>
+        <li><strong>A.</strong> Setup guide untuk team development (4 orang)</li>
+        <li><strong>B.</strong> Checklist testing untuk tim development</li>
+    </ul>
+
+    <div class="signature-section">
+        <div class="signature-box">
+            <strong>Disusun oleh:</strong><br><br>
+            ________________________<br>
+            ULTRAMAN<br>
+            Tanggal: 4 September 2025
+        </div>
+        
+        <div class="signature-box">
+            <strong>Disetujui oleh:</strong><br><br>
+            ________________________<br>
+            KAPTEN AMMAR<br>
+            Tanggal: 4 September 2025
+        </div>
+    </div>
+
+    <script>
+        function downloadAsWord() {
+            // Create a blob with HTML content formatted for Word
+            const htmlContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head>
+                    <meta charset='utf-8'>
+                    <title>Software Requirements Specification - Sistem Absensi Karyawan</title>
+                    <!--[if gte mso 9]>
+                    <xml>
+                        <w:WordDocument>
+                            <w:View>Print</w:View>
+                            <w:Zoom>90</w:Zoom>
+                            <w:DoNotPromptForConvert/>
+                            <w:DoNotShowInsertionsAndDeletions/>
+                        </w:WordDocument>
+                    </xml>
+                    <![endif]-->
+                    <style>
+                        body { font-family: 'Times New Roman', serif; line-height: 1.6; }
+                        h1, h2, h3 { color: #2c3e50; }
+                        table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+                        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                        th { background-color: #f0f0f0; font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    ${document.body.innerHTML.replace(/<div class="no-print".*?<\/div>/g, '')}
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([htmlContent], {
+                type: 'application/msword'
+            });
+            
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'SRS_Sistem_Absensi_Karyawan_Laravel12.doc';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
