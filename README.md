@@ -229,7 +229,7 @@ Dokumen ini mendefinisikan kebutuhan fungsional dan non-fungsional sebagai dasar
 
 ## Tanda Tangan
 
-#### **Disusun oleh: FOUR A TEAM**
+#### **Disusun oleh: Muhammad Dhiyaul Atha**
 #### **Disetujui oleh: FOUR A TEAM**
 #### **Tanggal: 4 September 2025**
 
