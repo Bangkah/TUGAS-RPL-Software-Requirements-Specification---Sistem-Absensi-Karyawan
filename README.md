@@ -40,7 +40,7 @@ LEAS dibuat untuk menggantikan cara-cara manual tersebut dengan satu aplikasi we
 
 ---
 
-## MANFAAT ORGANISASI  
+## MANFAAT APLIKASI
 - HRD mengurangi waktu rekap dari beberapa hari menjadi hitungan menit, serta meminimalkan kesalahan hitung manual  
 - Pimpinan dapat melihat kinerja kehadiran tim secara langsung, tanpa menunggu laporan hard-copy  
 - Karyawan merasa proses lebih adil karena tidak dapat dimanipulasi (foto + GPS)  
@@ -66,3 +66,17 @@ LEAS dibuat untuk menggantikan cara-cara manual tersebut dengan satu aplikasi we
    HRD memilih periode → klik “Export Rekap” → sistem menghasilkan PDF (slip gaji) dan Excel (rekap bulanan) untuk kebutuhan payroll
 
 Dengan alur tersebut, LEAS diharapkan menjadi solusi presensi modern yang praktis, aman, dan siap dipakai oleh perusahaan skala kecil hingga menengah.
+
+
+## Berikut adalah ketentuan yang di kerjakan terpenuhi :
+1.  Flow diagram / usecase diagram sederhana yang menggambarkan fitur sistem
+  <img width="3522" height="1491" alt="image" src="https://github.com/user-attachments/assets/82c939b7-5c58-4fd7-a786-804b27138383" />
+
+2. Mengatur Status Absen masuk yang dilakukan karyawan sebelum jam 09.00 pagi, sedangkan absen keluar dilakukan setelah jam 17.00 akan diberikan status tidak valid pada sistem.
+3. menyediakan fitur pengajuan ketidakhadiran kerja dibagi menjadi 2 yaitu izin sakit dan izin cuti.
+4. Semua data yang terekam dari semua fitur diatas dapat ditampilkan menjadi sebuah laporan yang berisi ketidakhadiran dan absensi karyawan.
+5. Absen masuk dan keluar menggunakan geo-tagging dari tempat tertentu.
+6. Menggunakan Eloquent ORM Laravel dalam melakukan interaksi database.
+7. Menu Setting Lembur oleh Admin.
+8. Pengajuan Lembur oleh Karyawan.
+9. Slip Gaji Karyawan.
